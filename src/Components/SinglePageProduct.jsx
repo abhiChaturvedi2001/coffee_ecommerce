@@ -7,6 +7,7 @@ import SingleSimmer from "./SingleSimmer";
 import Cart from "./Cart";
 
 const SinglePageProduct = () => {
+  const [selectedFlavour, setSelectedFlavour] = useState(null);
   const [isCart, setisCart] = useState(false);
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -22,9 +23,14 @@ const SinglePageProduct = () => {
   const singleData = useSelector(
     (store) => store.productData.singleProductData
   );
-  const handleCart = (id) => {
-    setisCart(true);
-    dispatch(addCartData(id));
+  const handleCart = (singleData) => {
+    if (selectedFlavour) {
+      setisCart(true);
+      const dataWithFlavour = { ...singleData[0], selectedFlavour };
+      dispatch(addCartData(dataWithFlavour));
+    } else if (selectedFlavour === null) {
+      alert("please select any flaovur");
+    }
   };
 
   return singleData === null ? (
@@ -47,7 +53,7 @@ const SinglePageProduct = () => {
             <>
               <img className="w-[600px] h-[700px]" src={image_url} alt="" />
               <div>
-                <h1 className="font-bold text-5xl">{name}</h1>
+                <h1 className="font-bold text-5xl font-rubik ">{name}</h1>
                 <p className="mt-4 w-[80%]">{description}</p>
                 <p className="mt-4 font-bold">Price : ${price}</p>
                 <p className="font-bold mt-4">Region : {region}</p>
@@ -56,14 +62,20 @@ const SinglePageProduct = () => {
                 <div className="flex items-center space-x-5">
                   {flavor_profile.map((items) => {
                     return (
-                      <h1 className="shadow-md mt-3 w-[8rem] cursor-pointer font-bold rounded-lg pt-5 hover:bg-black hover:text-white transition-all duration-200 px-3 h-[10vh] text-center py-2">
-                        {items}
-                      </h1>
+                      <>
+                        <input
+                          type="radio"
+                          value={items}
+                          checked={selectedFlavour === items}
+                          onChange={() => setSelectedFlavour(items)}
+                        />
+                        <label htmlFor={items}>{items}</label>
+                      </>
                     );
                   })}
                 </div>
                 <button
-                  onClick={() => handleCart(id)}
+                  onClick={() => handleCart(singleData)}
                   className="mt-4 shadow-lg font-bold uppercase tracking-wide px-3 py-4 cursor-pointer w-[60%] rounded-md"
                 >
                   Add to Cart

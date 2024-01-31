@@ -6,17 +6,17 @@ const Featured = () => {
     <>
       <div className="flex justify-around w-[80%] h-[60vh] items-center mx-auto ">
         <div className="left w-[100%] ">
-          <h1 className="font-bold text-3xl uppercase tracking-wider ">
+          <h1 className="font-bold text-3xl uppercase tracking-wider font-rubik ">
             Discover the best coffee
           </h1>
-          <p className="mt-3">
+          <p className="mt-3 font-poppins ">
             Bean Scene is a coffee shop that provides you with quality coffee
             that helps boost your productivity and helps build your mood. Having
             a cup of coffee is good, but having a cup of real coffee is greater.
             There is no doubt that you will enjoy this coffee more than others
             you have ever tasted.
           </p>
-          <button className="border px-3 py-3 shadow-lg mt-5 w-[20rem] font-bold rounded-md">
+          <button className="border font-poppins px-3 py-3 shadow-lg mt-5 w-[20rem] font-bold rounded-md">
             Learn More
           </button>
         </div>

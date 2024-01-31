@@ -8,6 +8,10 @@ export default {
     extend: {
       backgroundImage: {
         banner_bg: 'url("https://monfee-store-demo.myshopify.com/cdn/shop/files/slideshow-v51.jpg?v=1613542798")'
+      },
+      fontFamily: {
+        "rubik": ['Rubik Maps', 'system-ui'],
+        "poppins": ['Poppins', 'sans-serif']
       }
     },
   },
