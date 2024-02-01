@@ -6,11 +6,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Cart = ({ isCart, setisCart }) => {
-  const [selectedQuantities, setSelectedQuantities] = useState(1);
   const cart = useSelector((store) => store.productData.cartData);
   const totalAmount = useSelector((store) => store.productData.totalAmount);
   const dispatch = useDispatch();
-  const optionArray = [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }];
 
   const handleDeleteCart = (id) => {
     dispatch(deleteCartData(id));
@@ -40,7 +38,14 @@ const Cart = ({ isCart, setisCart }) => {
               <h1 className="font-bold text-center">Opps ! cart is empty</h1>
             ) : (
               cart.map((items) => {
-                const { id, image_url, name, price, selectedFlavour } = items;
+                const {
+                  id,
+                  image_url,
+                  name,
+                  price,
+                  selectedFlavour,
+                  selectedQuantities,
+                } = items;
                 return (
                   <>
                     <div className="flex items-center space-x-5 font-poppins">
@@ -51,22 +56,7 @@ const Cart = ({ isCart, setisCart }) => {
                           Flavour : {selectedFlavour}
                         </h2>
                         <p>$ {price}</p>
-                        Qty :{" "}
-                        <select
-                          id={id}
-                          value={selectedQuantities}
-                          onChange={(e) =>
-                            setSelectedQuantities(
-                              parseInt(e.currentTarget.value)
-                            )
-                          }
-                        >
-                          {optionArray.map((val) => (
-                            <option key={val.value} value={val.value}>
-                              {val.value}
-                            </option>
-                          ))}
-                        </select>
+                        <p>Qty : {selectedQuantities}</p>
                       </div>
                       <MdDelete
                         onClick={() => handleDeleteCart(id)}
@@ -76,7 +66,7 @@ const Cart = ({ isCart, setisCart }) => {
                     <div className="fixed bottom-5 w-[30%] bg-white px-4 ">
                       <div className="flex justify-between mb-4">
                         <h1>Total</h1>
-                        <p>$ {totalAmount * selectedQuantities} </p>
+                        <p>$ {totalAmount} </p>
                       </div>
                       <button className="w-full bg-red-500 text-white py-2">
                         Complete Order

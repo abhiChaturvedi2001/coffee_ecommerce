@@ -12,7 +12,7 @@ const ProductsCard = () => {
     <CardsShimmer />
   ) : (
     <>
-      <div className="flex flex-wrap justify-center text-center w-[80%] mx-auto mt-4 ">
+      <div className="flex flex-wrap justify-center text-center w-[80%] mx-auto mt-4  ">
         {prodData.map((items) => {
           const { name, price, region, image_url, id } = items;
           return (
@@ -20,7 +20,7 @@ const ProductsCard = () => {
               <Link to={`/singleProduct/${id}`}>
                 <div
                   key={id}
-                  className=" hover:shadow-lg transition-all duration-300 mt-3 py-2 rounded-xl cursor-pointer  "
+                  className="shadow-md hover:shadow-lg transition-all duration-300 mt-3 my-3 py-2 rounded-xl cursor-pointer  "
                 >
                   <img className="w-[250px]" src={image_url} alt="" />
                   <div>

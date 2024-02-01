@@ -15,7 +15,7 @@ const Header = () => {
             </h3>
           </div>
         </Link>
-        <ul className="flex items-center space-x-8 font-medium font-poppins">
+        <ul className="flex items-center space-x-8 font-medium font-poppins max-md:hidden">
           <Link to={"/about"}>
             <li>About us</li>
           </Link>
@@ -28,6 +28,7 @@ const Header = () => {
             </Link>
           </li>
         </ul>
+        <div className="hidden max-sm:block">X</div>
       </nav>
     </>
   );

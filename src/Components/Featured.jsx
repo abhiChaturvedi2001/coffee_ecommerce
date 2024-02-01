@@ -4,8 +4,8 @@ import image1 from "../Assets/img1.jpeg";
 const Featured = () => {
   return (
     <>
-      <div className="flex justify-around w-[80%] h-[60vh] items-center mx-auto ">
-        <div className="left w-[100%] ">
+      <div className="flex justify-around w-[80%] h-[60vh] items-center mx-auto px-5 ">
+        <div className="left w-[100%] max-md:text-center ">
           <h1 className="font-bold text-3xl uppercase tracking-wider font-rubik ">
             Discover the best coffee
           </h1>
@@ -20,7 +20,11 @@ const Featured = () => {
             Learn More
           </button>
         </div>
-        <img className="bg-orange-300 w-[650px] " src={image1} alt="" />
+        <img
+          className="bg-orange-300 w-[650px] max-md:hidden "
+          src={image1}
+          alt=""
+        />
       </div>
     </>
   );

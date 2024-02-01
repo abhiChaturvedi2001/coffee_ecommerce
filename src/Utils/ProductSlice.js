@@ -8,7 +8,6 @@ const ProductSlice = createSlice({
         singleProductData: null,
         cartData: [],
         totalAmount: 0,
-        sum: 0,
     },
     reducers: {
         addCoffeeData: (state, action) => {
@@ -19,10 +18,10 @@ const ProductSlice = createSlice({
         },
         addCartData: (state, action) => {
             const data = action.payload;
-            let sum = 0;
-            const found = state.cartData.findIndex((items) => items.id === data.id)
+            const found = state.cartData.findIndex((items) => items.id === data.id);
             if (found) {
-                state.cartData.push(data);
+                // make a shallow copy and update the cart data 
+                return { ...state, cartData: [...state.cartData, data] }
             }
             else {
                 toast("Items exist in your cart 🥲 ", {
@@ -30,7 +29,10 @@ const ProductSlice = createSlice({
                     type: "success"
                 })
             }
-            state.totalAmount = state.cartData.reduce((accum, item) => accum + item.price, 0);
+            const amount = state.cartData.reduce((accum, currentItems) => {
+                return currentItems + accum;
+            })
+            state.totalAmount = amount;
         },
         deleteCartData: (state, action) => {
             const id = action.payload

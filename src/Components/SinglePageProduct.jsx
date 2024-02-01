@@ -7,6 +7,8 @@ import SingleSimmer from "./SingleSimmer";
 import Cart from "./Cart";
 
 const SinglePageProduct = () => {
+  const [selectedQuantities, setSelectedQuantities] = useState(1);
+  const optionArray = [{ value: 1 }, { value: 2 }, { value: 3 }, { value: 4 }];
   const [selectedFlavour, setSelectedFlavour] = useState(null);
   const [isCart, setisCart] = useState(false);
   const dispatch = useDispatch();
@@ -26,7 +28,11 @@ const SinglePageProduct = () => {
   const handleCart = (singleData) => {
     if (selectedFlavour) {
       setisCart(true);
-      const dataWithFlavour = { ...singleData[0], selectedFlavour };
+      const dataWithFlavour = {
+        ...singleData[0],
+        selectedFlavour,
+        selectedQuantities,
+      };
       dispatch(addCartData(dataWithFlavour));
     } else if (selectedFlavour === null) {
       alert("please select any flaovur");
@@ -37,7 +43,7 @@ const SinglePageProduct = () => {
     <SingleSimmer />
   ) : (
     <>
-      <div className="flex justify-center items-center h-[100vh]">
+      <div className="flex justify-center items-center h-[100vh] max-md:flex-wrap  ">
         {singleData.map((items) => {
           const {
             id,
@@ -74,6 +80,20 @@ const SinglePageProduct = () => {
                     );
                   })}
                 </div>
+                Qty :{" "}
+                <select
+                  id={id}
+                  value={selectedQuantities}
+                  onChange={(e) =>
+                    setSelectedQuantities(Number(e.target.value))
+                  }
+                >
+                  {optionArray.map((val) => (
+                    <option key={val.value} value={val.value}>
+                      {val.value}
+                    </option>
+                  ))}
+                </select>
                 <button
                   onClick={() => handleCart(singleData)}
                   className="mt-4 shadow-lg font-bold uppercase tracking-wide px-3 py-4 cursor-pointer w-[60%] rounded-md"

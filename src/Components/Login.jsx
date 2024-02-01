@@ -6,6 +6,9 @@ const Login = () => {
   const handleToggle = () => {
     setisSignUpForm(!isSignUpForm);
   };
+
+  const handleAuthentication = () => {};
+
   return (
     <>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -55,7 +58,10 @@ const Login = () => {
               placeholder="password"
             />
           </div>
-          <button className="w-full mt-3 rounded-md bg-purple-500 py-2 shadow-lg text-white font-bold">
+          <button
+            onClick={handleAuthentication}
+            className="w-full mt-3 rounded-md bg-purple-500 py-2 shadow-lg text-white font-bold"
+          >
             {isSignUpForm ? "Sign up" : "Login"}
           </button>
           <p className="mt-5 text-center font-bold">
