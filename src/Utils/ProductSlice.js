@@ -6,8 +6,7 @@ const ProductSlice = createSlice({
     initialState: {
         coffeeData: [],
         singleProductData: null,
-        cartData: [],
-        totalAmount: 0,
+        cartData: []
     },
     reducers: {
         addCoffeeData: (state, action) => {
@@ -16,32 +15,19 @@ const ProductSlice = createSlice({
         addSingleProductData: (state, action) => {
             state.singleProductData = action.payload
         },
-        addCartData: (state, action) => {
+        addDataToCart: (state, action) => {
             const data = action.payload;
-            const found = state.cartData.findIndex((items) => items.id === data.id);
-            if (found) {
-                // make a shallow copy and update the cart data 
-                return { ...state, cartData: [...state.cartData, data] }
-            }
-            else {
-                toast("Items exist in your cart 🥲 ", {
-                    position: "top-center",
-                    type: "success"
-                })
-            }
-            const amount = state.cartData.reduce((accum, currentItems) => {
-                return currentItems + accum;
-            })
-            state.totalAmount = amount;
+            state.cartData = [...state.cartData, data];
         },
-        deleteCartData: (state, action) => {
-            const id = action.payload
+        deleteItemsCart: (state, action) => {
+            const id = action.payload;
             state.cartData = state.cartData.filter((items) => items.id !== id);
-
-        },
+        }
     }
 });
 
-export const { addCoffeeData, addSingleProductData, addCartData, deleteCartData, } = ProductSlice.actions
+
+
+export const { addCoffeeData, addSingleProductData, addDataToCart, deleteItemsCart } = ProductSlice.actions
 
 export default ProductSlice.reducer

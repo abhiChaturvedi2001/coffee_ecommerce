@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 
 const Login = () => {
-  const [isSignUpForm, setisSignUpForm] = useState(false);
-
+  const [isSignUpForm, setisSignUpForm] = useState(false); // manage the toggle functionality in our App
+  
+  // for hande the above toggle functionalty we are making the function for handle that.
   const handleToggle = () => {
     setisSignUpForm(!isSignUpForm);
   };
 
+  // this button to hande the authentication process via Firebase
   const handleAuthentication = () => {};
 
   return (

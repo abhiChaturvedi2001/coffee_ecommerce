@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 import CardsShimmer from "./CardsShimmer";
 
 const ProductsCard = () => {
-  useFetchProductData();
-  const prodData = useSelector((store) => store.productData.coffeeData);
+  useFetchProductData(); // making custom hooks beacuse we dont want to give load of fetching the data from the API
+  const prodData = useSelector((store) => store.productData.coffeeData); // subscribe the coffeeData Array from the store
 
+  // doing some conditional rendering
   return prodData.length === 0 ? (
     <CardsShimmer />
   ) : (

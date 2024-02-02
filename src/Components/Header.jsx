@@ -19,7 +19,6 @@ const Header = () => {
           <Link to={"/about"}>
             <li>About us</li>
           </Link>
-          <li>Our Products</li>
           <li>Delivery</li>
           <li>
             <Link to={"/login"}>
