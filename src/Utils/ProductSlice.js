@@ -6,7 +6,8 @@ const ProductSlice = createSlice({
     initialState: {
         coffeeData: [],
         singleProductData: null,
-        cartData: []
+        cartData: [],
+        totalAmount: 0
     },
     reducers: {
         addCoffeeData: (state, action) => {
@@ -16,12 +17,21 @@ const ProductSlice = createSlice({
             state.singleProductData = action.payload
         },
         addDataToCart: (state, action) => {
-            const data = action.payload;
+            const data = action.payload
             state.cartData = [...state.cartData, data];
+            let sum = state.cartData.reduce((accum, curreElem) => {
+                return accum + curreElem.price * curreElem.quantity;
+            }, 0)
+            state.totalAmount = sum;
         },
         deleteItemsCart: (state, action) => {
-            const id = action.payload;
-            state.cartData = state.cartData.filter((items) => items.id !== id);
+            const flavour = action.payload;
+            state.cartData = state.cartData.filter((items) => {
+                if (items.flavour !== flavour) {
+                    state.totalAmount -= items.price * items.quantity
+                    return items;
+                }
+            });
         }
     }
 });

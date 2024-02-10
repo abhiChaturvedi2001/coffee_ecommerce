@@ -4,15 +4,27 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdDelete } from "react-icons/md";
 import { deleteItemsCart } from "../Utils/ProductSlice";
+import { useNavigate } from "react-router-dom";
 
 const Cart = ({ isCart, setisCart }) => {
+  const isLoggedIn = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartData = useSelector((store) => store.productData.cartData);
-  const handleDelete = (id) => {
-    dispatch(deleteItemsCart(id));
+  const amount = useSelector((store) => store.productData.totalAmount);
+  const handleDelete = (flavour) => {
+    dispatch(deleteItemsCart(flavour));
     toast.success("items delete successfully", {
       position: "top-center",
     });
+  };
+
+  const checkUserLoggedIn = () => {
+    if (isLoggedIn !== null) {
+      navigate("/address");
+    } else {
+      navigate("/login");
+    }
   };
   return (
     <>
@@ -52,7 +64,7 @@ const Cart = ({ isCart, setisCart }) => {
                         <div className="font-bold">$ : {price}</div>
                       </div>
                       <MdDelete
-                        onClick={() => handleDelete(id)}
+                        onClick={() => handleDelete(flavour)}
                         className="text-2xl cursor-pointer"
                       />
                     </div>
@@ -64,9 +76,12 @@ const Cart = ({ isCart, setisCart }) => {
           <div className="fixed bottom-2 w-[30rem] px-3 ">
             <div className="flex justify-between px-3 my-3 font-bold">
               <p>Total</p>
-              <p>$ 0</p>
+              <p>$ {Math.round(amount)}</p>
             </div>
-            <button className="bg-red-400 w-full py-3 font-bold text-white">
+            <button
+              onClick={checkUserLoggedIn}
+              className="bg-red-400 w-full py-3 font-bold text-white"
+            >
               {" "}
               Complete Order
             </button>

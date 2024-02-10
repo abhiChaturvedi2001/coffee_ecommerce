@@ -5,6 +5,7 @@ import Header from "./Components/Header";
 import Body from "./Components/Body";
 import About from "./Components/About";
 import SinglePageProduct from "./Components/SinglePageProduct";
+import Address from "./Components/Address";
 
 const App = () => {
   return (
@@ -33,6 +34,10 @@ export const appRouter = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/address",
+        element: <Address />,
       },
       {
         path: "/singleProduct/:id",

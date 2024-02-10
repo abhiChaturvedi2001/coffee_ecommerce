@@ -1,15 +1,84 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { auth } from "../Utils/firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { addUser } from "../Utils/userSlice";
 
 const Login = () => {
   const [isSignUpForm, setisSignUpForm] = useState(false); // manage the toggle functionality in our App
-  
+  const name = useRef(null);
+  const phone = useRef(null);
+  const email = useRef(null);
+  const password = useRef(null);
+  const dispatch = useDispatch();
+
   // for hande the above toggle functionalty we are making the function for handle that.
   const handleToggle = () => {
     setisSignUpForm(!isSignUpForm);
   };
 
   // this button to hande the authentication process via Firebase
-  const handleAuthentication = () => {};
+  const handleAuthentication = () => {
+    if (isSignUpForm === true) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+            phoneNumber: phone.current.value,
+          })
+            .then(() => {})
+            .catch((error) => {
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                })
+              );
+            });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          const { uid, email, displayName } = user;
+          dispatch(
+            addUser({
+              uid: uid,
+              email: email,
+              displayName: displayName,
+            })
+          );
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+    }
+
+    name.current.value = "";
+    email.current.value = "";
+    password.current.value = "";
+  };
 
   return (
     <>
@@ -28,6 +97,7 @@ const Login = () => {
             <div>
               <label className="text-1xl">Name</label>
               <input
+                ref={name}
                 className="block mt-3 w-full py-2 px-2 bg-gray-300 shadow-lg rounded-lg"
                 type="text"
                 placeholder="your name"
@@ -38,6 +108,7 @@ const Login = () => {
             <div className="mt-3">
               <label className="text-1xl">Phone</label>
               <input
+                ref={phone}
                 className="block mt-2 w-full py-2 px-2 bg-gray-300 shadow-lg rounded-lg"
                 type="text"
                 placeholder="Phone"
@@ -47,6 +118,7 @@ const Login = () => {
           <div className="mt-3">
             <label className="text-1xl">Email</label>
             <input
+              ref={email}
               className="block mt-2 w-full py-2 px-2 bg-gray-300 shadow-lg rounded-lg"
               type="email"
               placeholder="example@123"
@@ -55,6 +127,7 @@ const Login = () => {
           <div className="mt-3">
             <label className="text-1xl">Password</label>
             <input
+              ref={password}
               className="block mt-2 rounded-lg bg-gray-300 shadow-lg w-full py-2 px-2 outline-none "
               type="password"
               placeholder="password"
