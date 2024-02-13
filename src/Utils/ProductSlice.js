@@ -7,7 +7,8 @@ const ProductSlice = createSlice({
         coffeeData: [],
         singleProductData: null,
         cartData: [],
-        totalAmount: 0
+        totalAmount: 0,
+        userAddress: []
     },
     reducers: {
         addCoffeeData: (state, action) => {
@@ -32,12 +33,15 @@ const ProductSlice = createSlice({
                     return items;
                 }
             });
+        },
+        addUserAddress: (state, action) => {
+            state.userAddress = action.payload
         }
     }
 });
 
 
 
-export const { addCoffeeData, addSingleProductData, addDataToCart, deleteItemsCart } = ProductSlice.actions
+export const { addCoffeeData, addSingleProductData, addUserAddress, addDataToCart, deleteItemsCart } = ProductSlice.actions
 
 export default ProductSlice.reducer

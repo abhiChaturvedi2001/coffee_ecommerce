@@ -6,6 +6,7 @@ import Body from "./Components/Body";
 import About from "./Components/About";
 import SinglePageProduct from "./Components/SinglePageProduct";
 import Address from "./Components/Address";
+import CheckoutPage from "./Components/CheckoutPage";
 
 const App = () => {
   return (
@@ -42,6 +43,10 @@ export const appRouter = createBrowserRouter([
       {
         path: "/singleProduct/:id",
         element: <SinglePageProduct />,
+      },
+      {
+        path: "/checkoutPage",
+        element: <CheckoutPage />,
       },
     ],
   },

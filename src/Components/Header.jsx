@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CiUser } from "react-icons/ci";
 import { App_logo } from "../Utils/constant";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,11 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../Utils/firebase";
 import { addUser, removeUser } from "../Utils/userSlice";
+import { IoMdMenu } from "react-icons/io";
+import { CiShoppingCart } from "react-icons/ci";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isLoggedIn = useSelector((store) => store.user);
+  const Amount = useSelector((store) => store.productData.totalAmount);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -67,12 +70,23 @@ const Header = () => {
           )}
           {isLoggedIn && <div>Welcome 👋🏻 {isLoggedIn.displayName}</div>}
           {isLoggedIn && (
-            <div onClick={handleSignout} className="border px-3 py-2 ">
+            <Link to={"/address"}>
+              <div className="flex space-x-2 items-center cursor-pointer">
+                <CiShoppingCart className="text-3xl" />
+                <span>$ {Math.round(Amount)}</span>
+              </div>
+            </Link>
+          )}
+          {isLoggedIn && (
+            <div
+              onClick={handleSignout}
+              className="border cursor-pointer px-3 py-2 "
+            >
               Logout
             </div>
           )}
         </ul>
-        <div className="hidden max-sm:block">X</div>
+        <IoMdMenu className="hidden text-4xl max-md:block" />
       </nav>
     </>
   );

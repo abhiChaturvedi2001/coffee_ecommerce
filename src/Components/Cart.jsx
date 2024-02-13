@@ -5,6 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { MdDelete } from "react-icons/md";
 import { deleteItemsCart } from "../Utils/ProductSlice";
 import { useNavigate } from "react-router-dom";
+import { RxCross1 } from "react-icons/rx";
+
 
 const Cart = ({ isCart, setisCart }) => {
   const isLoggedIn = useSelector((store) => store.user);
@@ -14,7 +16,7 @@ const Cart = ({ isCart, setisCart }) => {
   const amount = useSelector((store) => store.productData.totalAmount);
   const handleDelete = (flavour) => {
     dispatch(deleteItemsCart(flavour));
-    toast.success("items delete successfully", {
+    toast.success("Cart Update Successfully", {
       position: "top-center",
     });
   };
@@ -43,7 +45,7 @@ const Cart = ({ isCart, setisCart }) => {
             onClick={() => setisCart(false)}
             className="text-3xl  cursor-pointer absolute right-5 top-4"
           >
-            X
+            <RxCross1 />
           </h1>
           <div className="h-[75vh] overflow-y-scroll ">
             {cartData.length === 0 ? (

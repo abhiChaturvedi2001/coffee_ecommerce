@@ -1,7 +1,6 @@
 import React from "react";
 import Featured from "./Featured";
 import Products from "./Products";
-import Different from "./Different";
 
 const Body = () => {
   return (
@@ -28,7 +27,6 @@ const Body = () => {
       </div>
       <Featured />
       <Products />
-      <Different />
     </>
   );
 };

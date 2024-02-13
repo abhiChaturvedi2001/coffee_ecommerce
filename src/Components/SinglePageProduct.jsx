@@ -60,18 +60,18 @@ const SinglePageProduct = () => {
         } = items;
         return (
           <>
-            <div className="flex justify-center items-center h-[100vh] max-md:flex-wrap ">
+            <div className="flex justify-center items-center min-h-[100vh] h-auto py-5 max-md:flex-wrap max-md:px-5 ">
               <img className="w-[600px] h-[700px]" src={image_url} alt="" />
               <div>
                 <h1 className="font-bold text-5xl font-rubik ">{name}</h1>
-                <p className="mt-4 w-[80%]">{description}</p>
+                <p className="mt-4 w-[80%] max-md:w-full">{description}</p>
                 <p className="mt-4 font-bold">Price : ${price}</p>
                 <p className="font-bold mt-4">Region : {region}</p>
                 <p className="mt-4 font-bold"> Weight : {weight} gm</p>
                 <div className="mt-4">
                   <label className="font-bold">Flavours : </label>
                   <select
-                    className="w-[10rem] ml-3 outline-none bg-gray-200 py-1 px-2 rounded-md"
+                    className="w-[15rem] max-md:w-[70%] ml-3 outline-none bg-gray-200 py-1 px-2 rounded-md"
                     value={selectedFlavour}
                     onChange={(e) => setSelectedFlavour(e.currentTarget.value)}
                   >
@@ -88,7 +88,7 @@ const SinglePageProduct = () => {
                 <div className="mt-4">
                   <label className="font-bold">Qty :</label>
                   <select
-                    className="w-[10rem] ml-3 outline-none bg-gray-200 py-1 px-2 rounded-md"
+                    className="w-[10rem] max-md:w-[70%] ml-3 outline-none bg-gray-200 py-1 px-2 rounded-md"
                     value={ProductQty}
                     onChange={(e) =>
                       setProductQty(parseInt(e.currentTarget.value))
@@ -102,7 +102,7 @@ const SinglePageProduct = () => {
                 </div>
                 <button
                   onClick={() => handleCart(singleData)}
-                  className="mt-4 shadow-lg font-bold uppercase tracking-wide px-3 py-4 cursor-pointer w-[60%] rounded-md"
+                  className="mt-4 shadow-lg font-bold uppercase tracking-wide px-3 py-4 cursor-pointer w-[60%] max-md:w-full rounded-md"
                 >
                   Add to Cart
                 </button>
